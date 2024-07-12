@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var imageModal = document.getElementById('imageModal');
+    imageModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var imageUrl = button.getAttribute('data-image-url');
+        var modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+    });
+});
+</script>
+
+    <style>
+        .image-link {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .image-link:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     < <div class="container mt-4">
@@ -44,7 +68,9 @@
                         <td>{{ $employee->position }}</td>
                         <td>
                             @if($employee->image)
-                                <img src="{{ $employee->image_url }}" alt="{{ $employee->name }}" width="100">
+                                <a href="#" class="image-link" data-bs-toggle="modal" data-bs-target="#imageModal" data-image-url="{{ $employee->image_url }}">
+                                    View Image
+                                </a>
                             @else
                                 No Image
                             @endif
@@ -62,6 +88,21 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLabel">Employee Image</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img src="" id="modalImage" class="img-fluid" alt="Employee Image">
+        </div>
+      </div>
+    </div>
+  </div>
 
     
 </body>
